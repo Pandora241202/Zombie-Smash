@@ -5,6 +5,9 @@ import os
 
 def main():
     pygame.init()
+    pygame.font.init()
+    pygame.mixer.init()
+
     screen = pygame.display.set_mode((900, 600))
 
     run = True
@@ -18,15 +21,22 @@ def main():
         zombies += [Zombie(30+180*i,310,ZombieState.NONE,screen)]
     for i in range(4):
         zombies += [Zombie(120+180*i,440,ZombieState.NONE,screen)]
-    count = 0
-    font_score = pygame.font.Font(os.path.join(os.path.dirname(os.path.realpath('Zombie.py')), 'pixel-gaming-font/PixelGamingRegular-d9w0g.ttf'), 30)
+
+    font_score = pygame.font.Font(os.path.join(os.path.dirname(os.path.realpath('Zombie.py')), 'Fonts/pixel-gaming-font/PixelGamingRegular-d9w0g.ttf'), 30)
+    ouch_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(os.path.realpath('Zombie.py')), 'Sounds/ouch.ogg'))
+    slam_zombie_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(os.path.realpath('Zombie.py')), 'Sounds/slam_zombie.ogg'))
+    pygame.mixer.Sound.set_volume(ouch_sound, 0.7)
+
     score = 0
-    
+    count = 0
+
     while run:
         eventlist = pygame.event.get()
         for event in eventlist:
             if event.type == pygame.QUIT:
                 run = False
+            if event.type == pygame.MOUSEBUTTONUP:
+                pygame.mixer.Sound.play(slam_zombie_sound)
         
         screen.fill((255,255,255))
         
@@ -44,6 +54,7 @@ def main():
                 zombie.fade()
             elif zombie.state == ZombieState.NEED_SLAM:
                 if zombie.is_slamed(eventlist):
+                    pygame.mixer.Sound.play(ouch_sound)
                     score += 1
                     zombie.change_state(ZombieState.IS_SLAMED)
                 if zombie.need_go_down():
