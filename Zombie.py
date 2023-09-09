@@ -51,9 +51,10 @@ class Zombie:
         self.screen.blit(surface, (self.x, self.y))
         
     def go_up(self):
-        self.y_rise -= 25 
         if self.y_rise == 0:
             self.state = ZombieState.NEED_SLAM
+            return
+        self.y_rise -= 25 
     
     def need_go_down(self):
         if self.time_last == 0:
@@ -62,15 +63,16 @@ class Zombie:
         self.time_last -= 1
     
     def go_down(self):
-        self.y_rise += 25 
         if self.y_rise == ZOMBIE_MAX_HEIGHT:
             self.state = ZombieState.NONE
+            return
+        self.y_rise += 25 
             
     def fade(self): 
         if self.alpha == 0:
             self.y_rise = ZOMBIE_MAX_HEIGHT
             self.state = ZombieState.NONE
-            self.alpha = 0
+            self.alpha = DEFAULT_ALPHA
             return 
         self.alpha -= 51    
         

@@ -42,26 +42,26 @@ def main():
         
         if count % 10 == 0:
             chosen_hole = random.randint(0,17)
-            if zombies[chosen_hole].state == ZombieState.NONE:
-                zombies[chosen_hole].change_state(ZombieState.GO_UP) 
+            while zombies[chosen_hole].state != ZombieState.NONE:
+                chosen_hole = random.randint(0,17)
+            zombies[chosen_hole].change_state(ZombieState.GO_UP) 
         
         for zombie in zombies:
             zombie.draw_hole()
             
             if zombie.state == ZombieState.GO_UP:
                 zombie.go_up()
-            elif zombie.state == ZombieState.IS_SLAMED:
+            if zombie.state == ZombieState.IS_SLAMED:
                 zombie.fade()
-            elif zombie.state == ZombieState.NEED_SLAM:
+            if zombie.state == ZombieState.NEED_SLAM:
                 if zombie.is_slamed(eventlist):
                     pygame.mixer.Sound.play(ouch_sound)
                     score += 1
                     zombie.change_state(ZombieState.IS_SLAMED)
-                if zombie.need_go_down():
+                elif zombie.need_go_down():
                     zombie.change_state(ZombieState.GO_DOWN)
-            elif zombie.state == ZombieState.GO_DOWN:
+            if zombie.state == ZombieState.GO_DOWN:
                 zombie.go_down()       
-            
             if zombie.state != ZombieState.NONE:
                 zombie.draw()
         
