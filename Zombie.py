@@ -5,7 +5,7 @@ from enum import Enum
 ZOMBIE_WIDTH = 100
 ZOMBIE_HEIGHT = 100
 DEFAULT_ALPHA = 255
-MAX_TIME_LAST = 20
+MAX_TIME_LAST = 30
 HOLE_WIDTH = 200
 HOLE_HEIGHT = 100
 ZOMBIE_MAX_HEIGHT = 100
@@ -54,7 +54,7 @@ class Zombie:
         if self.y_rise == 0:
             self.state = ZombieState.NEED_SLAM
             return
-        self.y_rise -= 25 
+        self.y_rise -= 20 
     
     def need_go_down(self):
         if self.time_last == 0:
@@ -66,7 +66,7 @@ class Zombie:
         if self.y_rise == ZOMBIE_MAX_HEIGHT:
             self.state = ZombieState.NONE
             return
-        self.y_rise += 25 
+        self.y_rise += 5 
             
     def fade(self): 
         if self.alpha == 0:
