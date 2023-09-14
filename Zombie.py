@@ -17,11 +17,17 @@ class ZombieState(Enum):
     GO_DOWN = 3
     NONE = 4
 class Zombie:
-    def __init__(self, x, y, state, screen):
-        self.state = state
+    def __init__(self, x, y, screen):
+        self.state = ZombieState.NONE
         self.x = x
         self.y = y
         self.screen = screen
+        self.y_rise = ZOMBIE_MAX_HEIGHT
+        self.alpha = DEFAULT_ALPHA
+        self.time_last = MAX_TIME_LAST
+    
+    def reset(self):
+        self.state = ZombieState.NONE
         self.y_rise = ZOMBIE_MAX_HEIGHT
         self.alpha = DEFAULT_ALPHA
         self.time_last = MAX_TIME_LAST

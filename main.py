@@ -17,18 +17,18 @@ def main():
     cursor_img = pygame.transform.scale(cursor_asset, (75, 75))
     cursor_img_rect = cursor_img.get_rect()
 
-    time = 1
+    time = 60
     run = True
     clock = pygame.time.Clock()
     zombies = []
     for i in range(5):
-        zombies += [Zombie(30+180*i,50,ZombieState.NONE,screen)]
+        zombies += [Zombie(30+180*i,50,screen)]
     for i in range(4):
-        zombies += [Zombie(120+180*i,180,ZombieState.NONE,screen)]
+        zombies += [Zombie(120+180*i,180,screen)]
     for i in range(5):
-        zombies += [Zombie(30+180*i,310,ZombieState.NONE,screen)]
+        zombies += [Zombie(30+180*i,310,screen)]
     for i in range(4):
-        zombies += [Zombie(120+180*i,440,ZombieState.NONE,screen)]
+        zombies += [Zombie(120+180*i,440,screen)]
 
     font_score = pygame.font.Font(os.path.join(os.path.dirname(os.path.realpath('Zombie.py')), 'Fonts/pixel-gaming-font/PixelGamingRegular-d9w0g.ttf'), 30)
     ouch_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(os.path.realpath('Zombie.py')), 'Sounds/ouch.ogg'))
@@ -49,15 +49,12 @@ def main():
                 smash_time += 1
             if event.type == pygame.USEREVENT: # Timer
                 time -= 1
-                if time == 0:
-                    endState = True
         screen.fill((255,255,255))
         
         if time > 0:
             # Custom cursor
             pygame.mouse.set_visible(False)
             cursor_img_rect.center = pygame.mouse.get_pos()
-            screen.blit(cursor_img, cursor_img_rect)
                     
             if count % 25 == 0:
                 chosen_hole = random.randint(0,17)
@@ -94,13 +91,15 @@ def main():
             time_text = font_score.render(f'Time left: {time}', True, (0,0, 0))
             screen.blit(time_text, (700, 10))
             
+            screen.blit(cursor_img, cursor_img_rect)
+            
             count += 1
             
             pygame.display.flip()  
         else:
             # Clear all zombies
             for zombie in zombies:
-                zombie.go_down()
+                zombie.reset()
             # End game
             screen.fill((132, 237, 162))
             score_text = font_score.render(f'Your score: {score}', True, (0, 0, 0))
@@ -124,7 +123,7 @@ def main():
         
             pygame.display.flip() # Update screen
             
-        clock.tick(30)
+        clock.tick(20)
         
     pygame.quit()
     
