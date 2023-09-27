@@ -12,8 +12,11 @@ def main():
     
     # UserEvent for timer
     pygame.time.set_timer(pygame.USEREVENT, 1000)
+    
+    background = pygame.image.load(os.path.join(os.path.dirname(os.path.realpath('Zombie.py')),'Images/background.png'))
+    screen.blit(background, (0, 0))
         
-    cursor_asset = pygame.image.load(os.path.join(os.path.dirname(os.path.realpath('Zombie.py')), 'Images/WoodenHammer.png'))
+    cursor_asset = pygame.image.load(os.path.join(os.path.dirname(os.path.realpath('Zombie.py')), 'Images/kute_hammer.png'))
     cursor_img = pygame.transform.scale(cursor_asset, (75, 75))
     cursor_img_rect = cursor_img.get_rect()
 
@@ -40,6 +43,7 @@ def main():
     count = 0
     
     while run:
+        screen.blit(background, (0, 0)) 
         eventlist = pygame.event.get()
         for event in eventlist:
             if event.type == pygame.QUIT:
@@ -49,7 +53,7 @@ def main():
                 smash_time += 1
             if event.type == pygame.USEREVENT: # Timer
                 time -= 1
-        screen.fill((255,255,255))
+        # screen.fill((255,255,255))
         
         if time > 0:
             # Custom cursor
@@ -82,13 +86,13 @@ def main():
                     zombie.draw()
             
             # Text UI
-            score_text = font_score.render(f'Score: {score}', True, (0,0, 0))
+            score_text = font_score.render(f'Score: {score}', True, (255,255, 255))
             screen.blit(score_text, (10, 10))
             
-            smash_time_text = font_score.render(f'Smash time: {smash_time}', True, (0,0, 0))
+            smash_time_text = font_score.render(f'Smash time: {smash_time}', True, (255,255, 255))
             screen.blit(smash_time_text, (320, 10))
             
-            time_text = font_score.render(f'Time left: {time}', True, (0,0, 0))
+            time_text = font_score.render(f'Time left: {time}', True, (255,255, 255))
             screen.blit(time_text, (700, 10))
             
             screen.blit(cursor_img, cursor_img_rect)

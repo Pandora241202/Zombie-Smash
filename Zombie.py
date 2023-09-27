@@ -47,7 +47,7 @@ class Zombie:
         
     def draw(self):
         surface = pygame.Surface((100, 100))
-        zombie = pygame.image.load(os.path.join(os.path.dirname(os.path.abspath('Zombie.py')), "Images/zombie.png" if self.state != ZombieState.IS_SLAMED else "Images/slamed_zombie.png"))
+        zombie = pygame.image.load(os.path.join(os.path.dirname(os.path.abspath('Zombie.py')), "Images/zombee.gif" if self.state != ZombieState.IS_SLAMED else "Images/zombii.gif"))
         zombie = pygame.transform.scale(zombie, (ZOMBIE_WIDTH,ZOMBIE_HEIGHT))   
         zombie_sur = zombie.convert_alpha()
         zombie_sur.set_alpha(self.alpha)  
@@ -80,10 +80,9 @@ class Zombie:
             self.state = ZombieState.NONE
             self.alpha = DEFAULT_ALPHA
             return 
-        self.alpha -= 51    
-        
+        self.alpha -= 51            
     def draw_hole(self):
-        hole = pygame.image.load(os.path.join(os.path.dirname(os.path.abspath('hole.py')), "Images/hole.png"))
+        hole = pygame.image.load(os.path.join(os.path.dirname(os.path.abspath('hole.py')), "Images/galaxy_hole.png"))
         hole = pygame.transform.scale(hole, (HOLE_WIDTH,HOLE_HEIGHT))   
         hole_sur = hole.convert_alpha()
         self.screen.blit(hole_sur, (self.x - 50, self.y + 47))
