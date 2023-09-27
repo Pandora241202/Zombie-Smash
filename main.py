@@ -105,13 +105,13 @@ def main():
             for zombie in zombies:
                 zombie.reset()
             # End game
-            screen.fill((132, 237, 162))
-            score_text = font_score.render(f'Your score: {score}', True, (0, 0, 0))
+            screen.fill((23,52,68))
+            score_text = font_score.render(f'Your score: {score}', True, (255, 255, 255))
             screen.blit(score_text, (360, 250))
             
             # Draw button
             button = pygame.Rect(350, 300, 200, 50)
-            pygame.draw.rect(screen, (16, 152, 104), button)
+            pygame.draw.rect(screen, (27, 41, 57), button)
             button_text = font_score.render('Play again', True, (255, 255, 255))
             screen.blit(button_text, (380, 310))
             
